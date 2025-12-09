@@ -1,0 +1,166 @@
+openapi: 3.0.3
+info:
+  title: Accounts and Movements API
+  description: Microservice for bank account management and transactions.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8081
+    description: Local Server
+
+tags:
+  - name: Accounts
+    description: Operations on bank accounts
+  - name: Movements
+    description: Transaction operations
+
+paths:
+  # --- ACCOUNT ENDPOINTS ---
+  /accounts:
+    post:
+      tags:
+        - Accounts
+      summary: Create a new account
+      operationId: createAccount
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountRequest'
+      responses:
+        '201':
+          description: Account created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountResponse'
+        '400':
+          description: Invalid input data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  # --- MOVEMENT ENDPOINTS ---
+  /movements:
+    post:
+      tags:
+        - Movements
+      summary: Register movement
+      operationId: createMovement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovementRequest'
+      responses:
+        '201':
+          description: Movement registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovementResponse'
+        '400':
+          description: Business error (Insufficient balance or invalid data)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    # --- ACCOUNT DTOs ---
+    AccountRequest:
+      type: object
+      required:
+        - accountNumber
+        - accountType
+        - initialBalance
+        - clientId
+      properties:
+        accountNumber:
+          type: string
+          example: "478758"
+        accountType:
+          type: string
+          enum: [SAVINGS, CHECKING]
+          example: "SAVINGS"
+        initialBalance:
+          type: number
+          format: double
+          minimum: 0.0
+          example: 2000.00
+        status:
+          type: boolean
+          default: true
+          example: true
+        clientId:
+          type: string
+          description: "ID of the client owning the account"
+          example: "12345"
+
+    AccountResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        accountNumber:
+          type: string
+        balance:
+          type: number
+          format: double
+        status:
+          type: boolean
+        clientId:
+          type: string
+
+    # --- MOVEMENT DTOs ---
+    MovementRequest:
+      type: object
+      required:
+        - accountNumber
+        - movementType
+        - amount
+      properties:
+        accountNumber:
+          type: string
+          description: "Account number to affect"
+          example: "478758"
+        movementType:
+          type: string
+          enum: [DEBIT, CREDIT]
+          example: "DEBIT"
+        amount:
+          type: number
+          format: double
+          minimum: 0.01
+          description: "Transaction amount (must be positive)"
+          example: 100.50
+
+    MovementResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        date:
+          type: string
+          format: date-time
+        movementType:
+          type: string
+        amount:
+          type: number
+          format: double
+        balance:
+          type: number
+          format: double
+
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string

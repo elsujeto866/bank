@@ -1,0 +1,21 @@
+# IDEs
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Docker Volumes (Evita subir tus bases de datos al repo)
+mysql_data/
+postgres_data/
+kafka_data/
+zookeeper_data/
+
+# Logs
+*.log
+.env
