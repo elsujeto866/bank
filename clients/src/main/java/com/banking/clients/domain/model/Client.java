@@ -1,6 +1,6 @@
-package domain.model;
+package com.banking.clients.domain.model;
 
-import domain.model.vo.*;
+import com.banking.clients.domain.model.vo.*;
 import lombok.Getter;
 
 @Getter
@@ -8,7 +8,7 @@ public class Client extends Person {
     private Password password;
     private ClientStatus status;
 
-    public Client(PersonId id, Name name,Gender gender, Identification identification, Address address,Phone phone, Password password, ClientStatus status) {
+    public Client(PersonId id, Name name, Gender gender, Identification identification, Address address, Phone phone, Password password, ClientStatus status) {
         super(id, name, gender, identification, address, phone);
         this.password = password;
         this.status = status;

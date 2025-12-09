@@ -1,6 +1,6 @@
-package domain.model;
+package com.banking.clients.domain.model;
 
-import domain.model.vo.*;
+import com.banking.clients.domain.model.vo.*;
 import lombok.Getter;
 
 @Getter

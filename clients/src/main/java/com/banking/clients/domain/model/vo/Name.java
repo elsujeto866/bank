@@ -1,4 +1,4 @@
-package domain.model.vo;
+package com.banking.clients.domain.model.vo;
 
 public record Name(String value) {
     public Name{
