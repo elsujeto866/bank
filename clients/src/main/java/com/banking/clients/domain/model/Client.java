@@ -6,9 +6,9 @@ import lombok.Getter;
 @Getter
 public class Client extends Person {
     private Password password;
-    private ClientStatus status;
+    private Boolean status;
 
-    public Client(PersonId id, Name name, Gender gender, Identification identification, Address address, Phone phone, Password password, ClientStatus status) {
+    public Client(PersonId id, Name name, Gender gender, Identification identification, Address address, Phone phone, Password password, Boolean status) {
         super(id, name, gender, identification, address, phone);
         this.password = password;
         this.status = status;
@@ -25,10 +25,10 @@ public class Client extends Person {
     }
 
     public void activate() {
-        this.status = ClientStatus.TRUE;
+        this.status = true;
     }
     public void deactivate() {
-        this.status = ClientStatus.FALSE;
+        this.status = false;
     }
 
 

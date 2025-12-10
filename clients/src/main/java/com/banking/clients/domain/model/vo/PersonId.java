@@ -1,8 +1,10 @@
 package com.banking.clients.domain.model.vo;
 
-public record PersonId(String value) {
+import java.util.UUID;
+
+public record PersonId(UUID value) {
     public PersonId {
-        if (value == null || value.isBlank()) {
+        if (value == null) {
             throw new IllegalArgumentException("ID cannot be empty");
         }
     }

@@ -1,4 +1,4 @@
-package com.banking.clients.domain.ports.input;
+package com.banking.clients.domain.ports.output;
 
 import com.banking.clients.domain.model.Client;
 import com.banking.clients.domain.model.vo.Identification;
