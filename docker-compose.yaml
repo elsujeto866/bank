@@ -32,7 +32,7 @@ services:
 
   postgresql:
     image: postgres:15-alpine
-    container_name: db_postgres_clientes
+    container_name: db_postgres_clients
     restart: always
     ports:
       - "${PORT_POSTGRES}:5432"
@@ -47,7 +47,7 @@ services:
 
   mysql:
     image: mysql:8.0
-    container_name: db_mysql_cuentas
+    container_name: db_mysql_accounts
     restart: always
     ports:
       - "${PORT_MYSQL}:3306"

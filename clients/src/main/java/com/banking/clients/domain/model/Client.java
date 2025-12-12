@@ -1,18 +1,18 @@
 package com.banking.clients.domain.model;
 
 import com.banking.clients.domain.model.vo.*;
-import lombok.Getter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Getter
+@SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class Client extends Person {
     private Password password;
-    private ClientStatus status;
+    private Boolean status;
 
-    public Client(PersonId id, Name name, Gender gender, Identification identification, Address address, Phone phone, Password password, ClientStatus status) {
-        super(id, name, gender, identification, address, phone);
-        this.password = password;
-        this.status = status;
-    }
     public void update(Name name, Gender gender, Address address, Phone phone) {
         this.name = name;
         this.gender = gender;
@@ -25,10 +25,10 @@ public class Client extends Person {
     }
 
     public void activate() {
-        this.status = ClientStatus.TRUE;
+        this.status = true;
     }
     public void deactivate() {
-        this.status = ClientStatus.FALSE;
+        this.status = false;
     }
 
 
