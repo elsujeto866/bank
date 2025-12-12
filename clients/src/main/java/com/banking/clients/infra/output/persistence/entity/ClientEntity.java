@@ -2,6 +2,10 @@ package com.banking.clients.infra.output.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "clients")
@@ -19,7 +23,8 @@ public class ClientEntity {
 
     @Column(unique = true, nullable = false)
     @EqualsAndHashCode.Include
-    private String personId;
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    private UUID personId;
 
     @ToString.Exclude
     private String password;
@@ -34,7 +39,7 @@ public class ClientEntity {
     @PrePersist
     public void prePersist() {
         if (this.personId == null) {
-            this.personId = java.util.UUID.randomUUID().toString();
+            this.personId = java.util.UUID.randomUUID();
         }
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class ClientPersistenceMapper {
     public ClientEntity toEntity(Client client) {
         return ClientEntity.builder()
-                .personId(client.getId().toString())
+                .personId(client.getId().value())
                 .password(client.getPassword().value())
                 .status(client.getStatus())
                 .name(client.getName().value())
@@ -20,15 +20,15 @@ public class ClientPersistenceMapper {
                 .build();
     }
     public Client toDomain(ClientEntity clientEntity) {
-        return new Client(
-                new PersonId(java.util.UUID.fromString(clientEntity.getPersonId())),
-                new Name(clientEntity.getName()),
-                Gender.valueOf(clientEntity.getGender().toUpperCase()),
-                new Identification(clientEntity.getIdentification()),
-                new Address(clientEntity.getAddress()),
-                new Phone(clientEntity.getPhone()),
-                new Password(clientEntity.getPassword()),
-                clientEntity.getStatus()
-        );
+        return Client.builder()
+                .id(new PersonId(clientEntity.getPersonId()))
+                .name(new Name(clientEntity.getName()))
+                .gender(Gender.valueOf(clientEntity.getGender().toUpperCase()))
+                .identification(new Identification(clientEntity.getIdentification()))
+                .address(new Address(clientEntity.getAddress()))
+                .phone(new Phone(clientEntity.getPhone()))
+                .password(new Password(clientEntity.getPassword()))
+                .status(clientEntity.getStatus())
+                .build();
     }
 }
